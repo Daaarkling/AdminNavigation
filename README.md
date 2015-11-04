@@ -1,7 +1,7 @@
 Basic usage
 -----------
 
-Customized version of Navigation Kollarovic
+Customized version of [Navigation Kollarovic](https://github.com/Kollarovic/Navigation)
 
 composer.json
 

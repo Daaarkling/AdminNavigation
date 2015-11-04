@@ -1,7 +1,7 @@
 Basic usage
 -----------
 
-Customized version of Admin Kollarovic
+Customized version of Navigation Kollarovic
 
 composer.json
 

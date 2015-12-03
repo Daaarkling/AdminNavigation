@@ -5,7 +5,7 @@
 {/define}
 
 {define item}
-	{if $item->isActive() and (!$item->resource or $user->isAllowed($item->resource))}
+	{if $item->isActive() and (!$item->resource or $user->isAllowed($item->resource, $item->privilege))}
 		<li n:class="$item->isDropdown() ? open">
 			{include link, item}
 			<ul class="{$subclass}" n:if="$item->isDropdown()">

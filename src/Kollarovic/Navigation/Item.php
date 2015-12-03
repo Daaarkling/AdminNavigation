@@ -21,6 +21,7 @@ use Nette\Utils\Validators;
  * @method mixed getLinkArgs()
  * @method string getIcon()
  * @method string getResource()
+ * @method string getPrivilege()
  * @method boolean isActive()
  * @method boolean isCurrent()
  */
@@ -44,6 +45,9 @@ class Item extends Object implements \ArrayAccess
 
 	/** @var string */
 	private $resource;
+	
+	/** @var string */
+	private $privilege;
 
 	/** @var string */
 	private $value;
@@ -67,12 +71,13 @@ class Item extends Object implements \ArrayAccess
 	 * @param string $icon
 	 * @param string $resource
 	 */
-	public function __construct($label, $link, $icon = NULL, $resource = NULL)
+	public function __construct($label, $link, $icon = NULL, $resource = NULL, $privilege = 'default')
 	{
 		$this->label = $label;
 		$this->icon = $icon;
 		$this->resource = $resource;
 		$this->link = $link ? $link : '#';
+		$this->privilege = $privilege;
 	}
 
 
@@ -84,9 +89,9 @@ class Item extends Object implements \ArrayAccess
 	 * @param string $resource
 	 * @return Item
 	 */
-	public function addItem($name, $label, $link, $icon = NULL, $resource = NULL)
+	public function addItem($name, $label, $link, $icon = NULL, $resource = NULL, $privilege = 'default')
 	{
-		$item = new Item($label, $link, $icon, $resource);
+		$item = new Item($label, $link, $icon, $resource, $privilege);
 		return $this[$name] = $item;
 	}
 

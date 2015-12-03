@@ -22,6 +22,7 @@ class ItemsFactory extends Object
 		'value' => NULL,
 		'items' => NULL,
 		'resource' => NULL,
+		'privilege' => 'default',
 		'options' => [],
 	];
 
@@ -50,7 +51,7 @@ class ItemsFactory extends Object
 		}
 
 		$config = (array)$this->config[$name] + $this->default;
-		$rootItem = new Item($config['label'], $config['link'], $config['icon'], $config['resource']);
+		$rootItem = new Item($config['label'], $config['link'], $config['icon'], $config['resource'], $config['privilege']);
 		$this->addItems($rootItem, $config['items']);
 
 		$this->items[$name] = $rootItem;
@@ -66,7 +67,7 @@ class ItemsFactory extends Object
 
 		foreach ($items as $name => $data) {
 			$data += $this->default;
-			$item = $rootItem->addItem($name, $data['label'], $data['link'], $data['icon'], $data['resource']);
+			$item = $rootItem->addItem($name, $data['label'], $data['link'], $data['icon'], $data['resource'], $data['privilege']);
 			$item->setLinkArgs($data['linkArgs']);
 			$item->setActive($data['active']);
 			$item->setValue($data['value']);

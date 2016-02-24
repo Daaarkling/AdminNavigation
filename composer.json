@@ -21,13 +21,12 @@
 	},
 
 	"require-dev": {
-		"nette/tester": "~1.3"
+		"nette/tester": "^1.6"
 	},
 
 	"autoload": {
 		"psr-0": {
 			"Kollarovic\\Navigation": "src/"
 		}
-	},
-	"minimum-stability": "dev"
+	}
 }

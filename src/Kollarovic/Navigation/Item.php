@@ -4,29 +4,13 @@ namespace Kollarovic\Navigation;
 
 use Nette\InvalidArgumentException;
 use Nette\Object;
+use Nette\SmartObject;
 use Nette\Utils\Validators;
 
 
-/**
- * @method Item setLinkArgs(mixed $linkArgs)
- * @method Item setActive(boolean $active)
- * @method Item setCurrent(boolean $current)
- * @method Item setValue(mixed $value)
- * @method Item setIcon(string $icon)
- * @method Item setOptions(array $options)
- *
- * @method string getName()
- * @method string getLabel()
- * @method string getLink()
- * @method mixed getLinkArgs()
- * @method string getIcon()
- * @method string getResource()
- * @method string getPrivilege()
- * @method boolean isActive()
- * @method boolean isCurrent()
- */
-class Item extends Object implements \ArrayAccess
+class Item implements \ArrayAccess
 {
+	use SmartObject;
 
 	/** @var string */
 	private $name;
@@ -280,4 +264,163 @@ class Item extends Object implements \ArrayAccess
 		unset($this->items[$offset]);
 	}
 
+	/**
+	 * @return string
+	 */
+	public function getLabel()
+	{
+		return $this->label;
+	}
+
+	/**
+	 * @param string $label
+	 */
+	public function setLabel($label)
+	{
+		$this->label = $label;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getLink()
+	{
+		return $this->link;
+	}
+
+	/**
+	 * @param string $link
+	 */
+	public function setLink($link)
+	{
+		$this->link = $link;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getLinkArgs()
+	{
+		return $this->linkArgs;
+	}
+
+	/**
+	 * @param mixed $linkArgs
+	 */
+	public function setLinkArgs($linkArgs)
+	{
+		$this->linkArgs = $linkArgs;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getIcon()
+	{
+		return $this->icon;
+	}
+
+	/**
+	 * @param string $icon
+	 */
+	public function setIcon($icon)
+	{
+		$this->icon = $icon;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getResource()
+	{
+		return $this->resource;
+	}
+
+	/**
+	 * @param string $resource
+	 */
+	public function setResource($resource)
+	{
+		$this->resource = $resource;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getPrivilege()
+	{
+		return $this->privilege;
+	}
+
+	/**
+	 * @param string $privilege
+	 */
+	public function setPrivilege($privilege)
+	{
+		$this->privilege = $privilege;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function isActive()
+	{
+		return $this->active;
+	}
+
+	/**
+	 * @param boolean $active
+	 */
+	public function setActive($active)
+	{
+		$this->active = $active;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function isCurrent()
+	{
+		return $this->current;
+	}
+
+	/**
+	 * @param boolean $current
+	 */
+	public function setCurrent($current)
+	{
+		$this->current = $current;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getOptions()
+	{
+		return $this->options;
+	}
+
+	/**
+	 * @param array $options
+	 */
+	public function setOptions($options)
+	{
+		$this->options = $options;
+	}
+
+	/**
+	 * @param string $value
+	 */
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
+
+	/**
+	 * @param array $items
+	 */
+	public function setItems($items)
+	{
+		$this->items = $items;
+	}
 }

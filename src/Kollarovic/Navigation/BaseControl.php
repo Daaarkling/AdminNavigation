@@ -6,11 +6,7 @@ use Nette\Application\UI\Control;
 use Nette\Application\UI\Presenter;
 
 
-/**
- * @method AdminControl setLayout(array $layout)
- * @method Item getRootItem()
- * @method array getLayout()
- */
+
 abstract class BaseControl extends Control
 {
 
@@ -35,7 +31,7 @@ abstract class BaseControl extends Control
 		if (!array_key_exists('translate', $template->getLatte()->getFilters())) {
 			$template->addFilter('translate', function($str){return $str;});
 		}
-		$file = __DIR__ . "/templates/{$this->layout['templates']['navigationDir']}/{$this->reflection->shortName}.latte";
+		$file = __DIR__ . "/templates/{$this->layout['templates']['navigationDir']}/" . (new \ReflectionClass($this))->getShortName() . ".latte";
 		$template->setFile($file);
 		return $template;
 	}
@@ -67,9 +63,41 @@ abstract class BaseControl extends Control
 		parent::attached($presenter);
 		if ($presenter instanceof Presenter) {
 			foreach($this->rootItem->getItems(TRUE) as $item) {
-				!$item->isUrl() and $item->setCurrent($presenter->isLinkCurrent($item->link, $item->linkArgs));
+				!$item->isUrl() and $item->setCurrent($presenter->isLinkCurrent($item->getLink(), $item->getLinkArgs()));
 			}
 		}
+	}
+
+	/**
+	 * @return Item
+	 */
+	public function getRootItem()
+	{
+		return $this->rootItem;
+	}
+
+	/**
+	 * @param Item $rootItem
+	 */
+	public function setRootItem($rootItem)
+	{
+		$this->rootItem = $rootItem;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getLayout()
+	{
+		return $this->layout;
+	}
+
+	/**
+	 * @param array $layout
+	 */
+	public function setLayout($layout)
+	{
+		$this->layout = $layout;
 	}
 
 }

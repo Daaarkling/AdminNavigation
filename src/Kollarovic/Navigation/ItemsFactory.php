@@ -4,10 +4,12 @@ namespace Kollarovic\Navigation;
 
 use Nette\Object;
 use Nette\InvalidArgumentException;
+use Nette\SmartObject;
 
 
-class ItemsFactory extends Object
+class ItemsFactory
 {
+	use SmartObject;
 
 	/** @var array */
 	private $config;

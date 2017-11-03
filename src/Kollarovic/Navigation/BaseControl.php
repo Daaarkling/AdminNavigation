@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Kollarovic\Navigation;
 
@@ -40,7 +41,7 @@ abstract class BaseControl extends Control
 	public abstract function render(array $options = []);
 
 
-	protected function getItemByOptions(array $options)
+	protected function getItemByOptions(array $options): Item
 	{
 		$item = $this->rootItem;
 		if ($options['root']) {
@@ -50,7 +51,7 @@ abstract class BaseControl extends Control
 	}
 
 
-	protected function extractOptions(array $options)
+	protected function extractOptions(array $options): void
 	{
 		foreach ($options as $key => $value) {
 			$this->template->$key = $value;
@@ -62,7 +63,7 @@ abstract class BaseControl extends Control
 	{
 		parent::attached($presenter);
 		if ($presenter instanceof Presenter) {
-			foreach($this->rootItem->getItems(TRUE) as $item) {
+			foreach($this->rootItem->getItems(true) as $item) {
 				!$item->isUrl() and $item->setCurrent($presenter->isLinkCurrent($item->getLink(), $item->getLinkArgs()));
 			}
 		}
@@ -71,7 +72,7 @@ abstract class BaseControl extends Control
 	/**
 	 * @return Item
 	 */
-	public function getRootItem()
+	public function getRootItem(): Item
 	{
 		return $this->rootItem;
 	}
@@ -79,7 +80,7 @@ abstract class BaseControl extends Control
 	/**
 	 * @param Item $rootItem
 	 */
-	public function setRootItem($rootItem)
+	public function setRootItem(Item $rootItem)
 	{
 		$this->rootItem = $rootItem;
 	}
@@ -87,7 +88,7 @@ abstract class BaseControl extends Control
 	/**
 	 * @return array
 	 */
-	public function getLayout()
+	public function getLayout(): array
 	{
 		return $this->layout;
 	}
@@ -95,9 +96,8 @@ abstract class BaseControl extends Control
 	/**
 	 * @param array $layout
 	 */
-	public function setLayout($layout)
+	public function setLayout(array $layout)
 	{
 		$this->layout = $layout;
 	}
-
 }

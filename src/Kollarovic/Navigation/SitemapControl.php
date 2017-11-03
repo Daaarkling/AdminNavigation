@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Kollarovic\Navigation;
 
@@ -7,10 +8,10 @@ class SitemapControl extends BaseControl
 {
 	
 	private $default = [
-		'root' => NULL, 
+		'root' => null,
 		'class' => 'nav', 
 		'subclass' => "nav",
-		'ajax' => FALSE,
+		'ajax' => false,
 	];
 
 

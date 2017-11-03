@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Kollarovic\Navigation;
 
@@ -7,8 +8,6 @@ use Nette\Application\UI\Control;
 
 class NavigationControl extends Control
 {
-
-
 	/** @var Item */
 	private $rootItem;
 	
@@ -49,25 +48,25 @@ class NavigationControl extends Control
 	}
 
 
-	protected function createComponentMenu()
+	protected function createComponentMenu(): MenuControl
 	{
 		return new MenuControl($this->rootItem, $this->layout);
 	}
 
 
-	protected function createComponentBreadcrumb()
+	protected function createComponentBreadcrumb(): BreadcrumbControl
 	{
 		return new BreadcrumbControl($this->rootItem, $this->layout);
 	}
 
 
-	protected function createComponentPanel()
+	protected function createComponentPanel(): PanelControl
 	{
 		return new PanelControl($this->rootItem, $this->layout);
 	}
 
 
-	protected function createComponentTitle()
+	protected function createComponentTitle(): TitleControl
 	{
 		return new TitleControl($this->rootItem, $this->layout);
 	}

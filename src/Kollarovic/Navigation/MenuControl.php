@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Kollarovic\Navigation;
 
@@ -7,15 +8,15 @@ class MenuControl extends BaseControl
 {
 	
 	private $default = [
-		'root' => NULL, 
+		'root' => null,
 		'class' => 'nav', 
 		'subclass' => "nav",
 		'activeClass' => "active",
 		'openClass' => "open",
 		'dropdownClass' => "dropdown dropdown-fw",
-		'open' => FALSE,
-		'deep' => TRUE,
-		'ajax' => FALSE,
+		'open' => false,
+		'deep' => true,
+		'ajax' => false,
 	];
 
 

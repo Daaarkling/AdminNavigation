@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Kollarovic\Navigation\DI;
 
@@ -13,7 +14,7 @@ class Extension extends CompilerExtension
 		$config = $this->getConfig();
 		$builder = $this->getContainerBuilder();
 		$builder->addDefinition($this->prefix('itemsFactory'))
-			->setClass('Kollarovic\Navigation\ItemsFactory', [$config]);
+			->setFactory('Kollarovic\Navigation\ItemsFactory', [$config]);
 	}
 
 }

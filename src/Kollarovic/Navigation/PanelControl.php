@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Kollarovic\Navigation;
 
@@ -7,8 +8,8 @@ class PanelControl extends BaseControl
 {
 	
 	private $default = [
-		'root' => NULL,
-		'ajax' => FALSE,
+		'root' => null,
+		'ajax' => false,
 	];
 
 
@@ -22,11 +23,15 @@ class PanelControl extends BaseControl
 	}
 
 
-	private function itemsInPanel($items)
+	/**
+	 * @param Item[] $items
+	 * @return array
+	 */
+	private function itemsInPanel(array $items): array
 	{
 		$itemsInPanel = [];
 		foreach($items as $item) {
-			if ($item->link == '#') {
+			if ($item->getLink() === '#') {
 				$itemsInPanel = array_merge($itemsInPanel, $this->itemsInPanel($item->getItems()));
 			} elseif(!$item->isCurrent() and $item->isActive()) {
 				$itemsInPanel[] = $item;

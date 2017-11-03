@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Kollarovic\Navigation;
 
@@ -7,7 +8,7 @@ class TitleControl extends BaseControl
 {
 	
 	private $default = [
-		'root' => NULL,
+		'root' => null,
 	];
 
 

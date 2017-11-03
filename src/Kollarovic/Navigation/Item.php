@@ -1,9 +1,9 @@
 <?php
+declare(strict_types=1);
 
 namespace Kollarovic\Navigation;
 
 use Nette\InvalidArgumentException;
-use Nette\Object;
 use Nette\SmartObject;
 use Nette\Utils\Validators;
 
@@ -37,10 +37,10 @@ class Item implements \ArrayAccess
 	private $value;
 
 	/** @var boolean */
-	private $active = TRUE;
+	private $active = true;
 
 	/** @var boolean */
-	private $current = FALSE;
+	private $current = false;
 
 	/** @var array */
 	private $items = [];
@@ -49,13 +49,8 @@ class Item implements \ArrayAccess
 	private $options = [];
 
 
-	/**
-	 * @param string $label
-	 * @param string $link
-	 * @param string $icon
-	 * @param string $resource
-	 */
-	public function __construct($label, $link, $icon = NULL, $resource = NULL, $privilege = 'default')
+
+	public function __construct(string $label, string $link, string $icon = null, string $resource = null, string $privilege = 'default')
 	{
 		$this->label = $label;
 		$this->icon = $icon;
@@ -65,15 +60,7 @@ class Item implements \ArrayAccess
 	}
 
 
-	/**
-	 * @param string $name
-	 * @param string $label
-	 * @param string $link
-	 * @param string $icon
-	 * @param string $resource
-	 * @return Item
-	 */
-	public function addItem($name, $label, $link, $icon = NULL, $resource = NULL, $privilege = 'default')
+	public function addItem(string $name, string $label, string $link, string $icon = null, string $resource = null, string $privilege = 'default'): Item
 	{
 		$item = new Item($label, $link, $icon, $resource, $privilege);
 		return $this[$name] = $item;
@@ -84,12 +71,12 @@ class Item implements \ArrayAccess
 	 * @param bool $deep
 	 * @return Item[]
 	 */
-	public function getItems($deep = FALSE)
+	public function getItems($deep = false): array
 	{
 		$items = array_values($this->items);
 		if ($deep) {
 			foreach($this->items as $item) {
-				$items = array_merge($items, $item->getItems(TRUE));
+				$items = array_merge($items, $item->getItems(true));
 			}
 		}
 		return $items;
@@ -99,7 +86,7 @@ class Item implements \ArrayAccess
 	/**
 	 * @return Item[]
 	 */
-	public function getItemsActive()
+	public function getItemsActive(): array
 	{
 		$items = array_values($this->items);
 
@@ -114,7 +101,7 @@ class Item implements \ArrayAccess
 	 * @param string $name
 	 * @return Item
 	 */
-	public function getItem($name)
+	public function getItem($name): Item
 	{
 		if (!isset($this->items[$name])) {
 			throw new InvalidArgumentException("Item with name '$name' does not exist.");
@@ -126,7 +113,7 @@ class Item implements \ArrayAccess
 	/**
 	 * @return Item|null
 	 */
-	public function getCurrentItem()
+	public function getCurrentItem(): ?Item
 	{
 		if ($this->isCurrent()) {
 			return $this;
@@ -136,45 +123,45 @@ class Item implements \ArrayAccess
 				return $item;
 			}
 		}
-		return NULL;
+		return null;
 	}
 
 
-	public function isOpen()
+	public function isOpen(): bool
 	{
 		if ($this->isCurrent()) {
-			return TRUE;
+			return true;
 		}
 		foreach ($this->getItems() as $item) {
-			if ($item->isCurrent() or $item->isOpen()) {
-				return TRUE;
+			if ($item->isCurrent() || $item->isOpen()) {
+				return true;
 			}
 		}
-		return FALSE;
+		return false;
 	}
 
 
-	public function isDropdown()
+	public function isDropdown(): bool
 	{
 		foreach ($this->getItems() as $item) {
 			if ($item->isActive()) {
-				return TRUE;
+				return true;
 			}
 		}
-		return FALSE;
+		return false;
 	}
 
 
-	public function isUrl()
+	public function isUrl(): bool
 	{
 		return (Validators::isUrl($this->link) or preg_match('~^/[^/]~', $this->link) or $this->link[0] == '#');
 	}
 
 
 	/**
-	 * @return Items[]
+	 * @return Item[]
 	 */
-	public function getPath()
+	public function getPath(): array
 	{
 		$items = [];
 		foreach ($this->getItems(TRUE) as $item) {
@@ -200,7 +187,7 @@ class Item implements \ArrayAccess
 	 * @param mixed $value
 	 * @return self
 	 */
-	public function setOption($name, $value)
+	public function setOption(string $name, $value): Item
 	{
 		$this->options[$name] = $value;
 		return $this;
@@ -209,15 +196,21 @@ class Item implements \ArrayAccess
 
 	/**
 	 * @param string $name
+	 * @param mixed|null $default
 	 * @return mixed
 	 */
-	public function getOption($name, $default = NULL)
+	public function getOption(string $name, $default = null)
 	{
 		return isset($this->options[$name]) ? $this->options[$name] : $default;
 	}
 
 
-	public function setName($name)
+	/**
+	 * @param string $name
+	 * @return self
+	 * @throws InvalidArgumentException
+	 */
+	public function setName(string $name): Item
 	{
 		if (!preg_match('~^[a-zA-Z0-9_]+~', $name)) {
 			throw new InvalidArgumentException("Name must be non-empty alphanumeric string, '$name' given.");
@@ -267,7 +260,7 @@ class Item implements \ArrayAccess
 	/**
 	 * @return string
 	 */
-	public function getLabel()
+	public function getLabel(): string
 	{
 		return $this->label;
 	}
@@ -275,7 +268,7 @@ class Item implements \ArrayAccess
 	/**
 	 * @param string $label
 	 */
-	public function setLabel($label)
+	public function setLabel(string $label)
 	{
 		$this->label = $label;
 	}
@@ -283,7 +276,7 @@ class Item implements \ArrayAccess
 	/**
 	 * @return string
 	 */
-	public function getLink()
+	public function getLink(): string
 	{
 		return $this->link;
 	}
@@ -291,7 +284,7 @@ class Item implements \ArrayAccess
 	/**
 	 * @param string $link
 	 */
-	public function setLink($link)
+	public function setLink(string $link)
 	{
 		$this->link = $link;
 	}
@@ -315,7 +308,7 @@ class Item implements \ArrayAccess
 	/**
 	 * @return string
 	 */
-	public function getIcon()
+	public function getIcon(): ?string
 	{
 		return $this->icon;
 	}
@@ -323,7 +316,7 @@ class Item implements \ArrayAccess
 	/**
 	 * @param string $icon
 	 */
-	public function setIcon($icon)
+	public function setIcon(string $icon = null)
 	{
 		$this->icon = $icon;
 	}
@@ -331,7 +324,7 @@ class Item implements \ArrayAccess
 	/**
 	 * @return string
 	 */
-	public function getResource()
+	public function getResource(): ?string
 	{
 		return $this->resource;
 	}
@@ -339,7 +332,7 @@ class Item implements \ArrayAccess
 	/**
 	 * @param string $resource
 	 */
-	public function setResource($resource)
+	public function setResource(string $resource = null)
 	{
 		$this->resource = $resource;
 	}
@@ -347,7 +340,7 @@ class Item implements \ArrayAccess
 	/**
 	 * @return string
 	 */
-	public function getPrivilege()
+	public function getPrivilege(): ?string
 	{
 		return $this->privilege;
 	}
@@ -355,39 +348,39 @@ class Item implements \ArrayAccess
 	/**
 	 * @param string $privilege
 	 */
-	public function setPrivilege($privilege)
+	public function setPrivilege(string $privilege = null)
 	{
 		$this->privilege = $privilege;
 	}
 
 	/**
-	 * @return boolean
+	 * @return bool
 	 */
-	public function isActive()
+	public function isActive(): bool
 	{
 		return $this->active;
 	}
 
 	/**
-	 * @param boolean $active
+	 * @param bool $active
 	 */
-	public function setActive($active)
+	public function setActive(bool $active)
 	{
 		$this->active = $active;
 	}
 
 	/**
-	 * @return boolean
+	 * @return bool
 	 */
-	public function isCurrent()
+	public function isCurrent(): bool
 	{
 		return $this->current;
 	}
 
 	/**
-	 * @param boolean $current
+	 * @param bool $current
 	 */
-	public function setCurrent($current)
+	public function setCurrent(bool $current)
 	{
 		$this->current = $current;
 	}
@@ -395,7 +388,7 @@ class Item implements \ArrayAccess
 	/**
 	 * @return array
 	 */
-	public function getOptions()
+	public function getOptions(): array
 	{
 		return $this->options;
 	}
@@ -403,24 +396,16 @@ class Item implements \ArrayAccess
 	/**
 	 * @param array $options
 	 */
-	public function setOptions($options)
+	public function setOptions(array $options)
 	{
 		$this->options = $options;
 	}
 
 	/**
-	 * @param string $value
+	 * @param mixed $value
 	 */
 	public function setValue($value)
 	{
 		$this->value = $value;
-	}
-
-	/**
-	 * @param array $items
-	 */
-	public function setItems($items)
-	{
-		$this->items = $items;
 	}
 }

@@ -1,8 +1,8 @@
 <?php
+declare(strict_types=1);
 
 namespace Kollarovic\Navigation;
 
-use Nette\Object;
 use Nette\InvalidArgumentException;
 use Nette\SmartObject;
 
@@ -17,13 +17,13 @@ class ItemsFactory
 	/** @var array */
 	private $default = [
 		'label' => 'None',
-		'link' => NULL,
+		'link' => null,
 		'linkArgs' => [],
-		'icon' => NULL,
-		'active' => TRUE,
-		'value' => NULL,
-		'items' => NULL,
-		'resource' => NULL,
+		'icon' => null,
+		'active' => true,
+		'value' => null,
+		'items' => null,
+		'resource' => null,
 		'privilege' => 'default',
 		'options' => [],
 	];
@@ -41,8 +41,9 @@ class ItemsFactory
 	/**
 	 * @param string $name
 	 * @return Item
+	 * @throws InvalidArgumentException
 	 */
-	public function create($name)
+	public function create($name): Item
 	{
 		if (isset($this->items[$name])) {
 			return $this->items[$name];

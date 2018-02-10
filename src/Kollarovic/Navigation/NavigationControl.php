@@ -47,6 +47,11 @@ class NavigationControl extends Control
 		$this['title']->render($options);
 	}
 
+	public function renderBackLink(array $options = [])
+	{
+		$this['backLink']->render($options);
+	}
+
 
 	protected function createComponentMenu(): MenuControl
 	{
@@ -69,6 +74,11 @@ class NavigationControl extends Control
 	protected function createComponentTitle(): TitleControl
 	{
 		return new TitleControl($this->rootItem, $this->layout);
+	}
+
+	protected function createComponentBackLink(): BackLinkControl
+	{
+		return new BackLinkControl($this->rootItem, $this->layout);
 	}
 
 }

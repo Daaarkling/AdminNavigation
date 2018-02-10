@@ -1,0 +1,3 @@
+{if $item && $item->getBackLink() !== null}
+	<a href="{plink $item->getBackLink() (expand) $item->getBackLinkArgs()}" class="btn btn-{$backLinkColor}"><i class="fa fa-arrow-left"></i> {_$back}</a>
+{/if}

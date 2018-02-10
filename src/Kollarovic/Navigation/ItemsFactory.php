@@ -25,6 +25,8 @@ class ItemsFactory
 		'items' => null,
 		'resource' => null,
 		'privilege' => 'default',
+		'backLink' => null,
+		'backLinkArgs' => [],
 		'options' => [],
 	];
 
@@ -75,6 +77,8 @@ class ItemsFactory
 			$item->setActive($data['active']);
 			$item->setValue($data['value']);
 			$item->setOptions($data['options']);
+			$item->setBackLink($data['backLink']);
+			$item->setBackLinkArgs($data['backLinkArgs']);
 			$this->addItems($item, $data['items']);
 		}
 	}

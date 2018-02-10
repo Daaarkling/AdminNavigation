@@ -21,7 +21,7 @@ class Item implements \ArrayAccess
 	/** @var string */
 	private $link;
 
-	/** @var mixed */
+	/** @var array */
 	private $linkArgs = [];
 
 	/** @var string */
@@ -35,6 +35,12 @@ class Item implements \ArrayAccess
 
 	/** @var string */
 	private $value;
+
+	/** @var string */
+	private $backLink;
+
+	/** @var array */
+	private $backLinkArgs = [];
 
 	/** @var boolean */
 	private $active = true;
@@ -290,17 +296,17 @@ class Item implements \ArrayAccess
 	}
 
 	/**
-	 * @return mixed
+	 * @return array
 	 */
-	public function getLinkArgs()
+	public function getLinkArgs(): array
 	{
 		return $this->linkArgs;
 	}
 
 	/**
-	 * @param mixed $linkArgs
+	 * @param array $linkArgs
 	 */
-	public function setLinkArgs($linkArgs)
+	public function setLinkArgs(array $linkArgs)
 	{
 		$this->linkArgs = $linkArgs;
 	}
@@ -407,5 +413,37 @@ class Item implements \ArrayAccess
 	public function setValue($value)
 	{
 		$this->value = $value;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getBackLink(): ?string
+	{
+		return $this->backLink;
+	}
+
+	/**
+	 * @param string $backLink
+	 */
+	public function setBackLink(string $backLink = null)
+	{
+		$this->backLink = $backLink;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getBackLinkArgs(): array
+	{
+		return $this->backLinkArgs;
+	}
+
+	/**
+	 * @param array $backLinkArgs
+	 */
+	public function setBackLinkArgs(array $backLinkArgs)
+	{
+		$this->backLinkArgs = $backLinkArgs;
 	}
 }

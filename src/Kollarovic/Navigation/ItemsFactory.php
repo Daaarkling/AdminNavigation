@@ -7,7 +7,7 @@ use Nette\InvalidArgumentException;
 use Nette\SmartObject;
 
 
-class ItemsFactory
+class ItemsFactory implements IItemsFactory
 {
 	use SmartObject;
 
